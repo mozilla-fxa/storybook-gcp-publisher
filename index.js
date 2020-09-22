@@ -29,6 +29,7 @@ async function initContext() {
     .option('-d, --dir <path>', 'working directory')
     .option('-c, --config <file>', 'local config JSON file')
     .option('-l, --log-level <level>', 'log level')
+    .option('--check-config', 'dump config settings to console')
     .option('--skip-build', 'skip storybook build')
     .option('--skip-publish', 'skip storybook pusblish')
     .option('--skip-status', 'skip setting github status check')
@@ -40,14 +41,23 @@ async function initContext() {
 
   const initialCwd = process.cwd();
 
-  const config = await loadConfig(program.config, {
-    logLevel: program.logLevel,
+  const options = {
     skip: {
       build: !!program.skipBuild,
       publish: !!program.skipPublish,
       status: !!program.skipStatus,
     },
-  });
+  };
+  if (program.logLevel) options.logLevel = program.logLevel;
+
+  const config = await loadConfig(program.config, options);
+
+  const log = createLog(config.logLevel);
+
+  if (program.checkConfig) {
+    console.log(config);
+    process.exit();
+  }
 
   const storage = new Storage({
     projectId: config.gcp.projectId,
@@ -58,8 +68,6 @@ async function initContext() {
   });
 
   const bucket = storage.bucket(config.gcp.bucket);
-
-  const log = createLog(config.logLevel);
 
   return {
     program,
