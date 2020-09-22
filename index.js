@@ -12,7 +12,10 @@ const rimraf = util.promisify(require('rimraf'));
 const mkdirp = util.promisify(require('mkdirp'));
 const { Storage } = require('@google-cloud/storage');
 
-require('dotenv').config();
+require('dotenv').config({
+  path: path.resolve(process.cwd(), '.storybook-publisher-env'),
+  debug: process.env.DEBUG
+});
 
 const INITIAL_CWD = process.cwd();
 
