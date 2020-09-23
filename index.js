@@ -50,14 +50,9 @@ async function initContext() {
   };
   if (program.logLevel) options.logLevel = program.logLevel;
 
-  const config = await loadConfig(program.config, options);
+  const config = await loadConfig(program.config, options, program.checkConfig);
 
   const log = createLog(config.logLevel);
-
-  if (program.checkConfig) {
-    console.log(config);
-    process.exit();
-  }
 
   const storage = new Storage({
     projectId: config.gcp.projectId,
