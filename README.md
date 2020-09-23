@@ -10,6 +10,8 @@ This is a utility intended for use with CircleCI which does the following:
 
 ## Usage
 
+### Basic
+
 The intended use for this utility is as a build job in CircleCI, e.g.:
 
 ```
@@ -21,6 +23,27 @@ The intended use for this utility is as a build job in CircleCI, e.g.:
       - run:
           name: Build and deploy Storybooks
           command: npx github:lmorchard/storybook-gcp-publisher
+```
+
+### Advanced
+
+Check [./index.js](./index.js) for command line options. The `--help` option can provide useful information as well:
+
+```
+✗ npx github:lmorchard/storybook-gcp-publisher --help
+
+Usage: storybook-gcp-publisher [options]
+
+Options:
+  -d, --dir <path>         working directory
+  -c, --config <file>      local config JSON file
+  -l, --log-level <level>  log level
+  --check-config           dump config settings to console
+  --skip-build             skip storybook build
+  --skip-publish           skip storybook pusblish
+  --skip-status            skip setting github status check
+  -V, --version            output the version number
+  -h, --help               display help for command
 ```
 
 ## Configuration
@@ -48,6 +71,8 @@ Credentials for Github and GCP should be configured in environmental variables:
 ### Advanced
 
 Check [./lib/config.js](./lib/config.js) for the complete configuration schema.
+
+The `--config-check` option outputs the current configuration with sensitive values obscured and then exits. This can be handy for troubleshooting config issues.
 
 Most configuration options have defaults or will be derived from environment variables and `package.json` in the current working directory. The current working directory can be changed with the `--dir` option, if necessary.
 

@@ -29,9 +29,9 @@ async function initContext() {
     .option('-d, --dir <path>', 'working directory')
     .option('-c, --config <file>', 'local config JSON file')
     .option('-l, --log-level <level>', 'log level')
-    .option('--check-config', 'dump config settings to console')
+    .option('--check-config', 'dump config settings to console and exit')
     .option('--skip-build', 'skip storybook build')
-    .option('--skip-publish', 'skip storybook pusblish')
+    .option('--skip-publish', 'skip storybook publish')
     .option('--skip-status', 'skip setting github status check')
     .version(ourPackageMeta.version);
 
