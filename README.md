@@ -31,16 +31,16 @@ Check [./index.js](./index.js) for command line options. The `--help` option can
 
 ```
 ✗ npx github:lmorchard/storybook-gcp-publisher --help
-
+npx: installed 134 in 5.229s
 Usage: storybook-gcp-publisher [options]
 
 Options:
   -d, --dir <path>         working directory
   -c, --config <file>      local config JSON file
   -l, --log-level <level>  log level
-  --check-config           dump config settings to console
+  --check-config           dump config settings to console and exit
   --skip-build             skip storybook build
-  --skip-publish           skip storybook pusblish
+  --skip-publish           skip storybook publish
   --skip-status            skip setting github status check
   -V, --version            output the version number
   -h, --help               display help for command
