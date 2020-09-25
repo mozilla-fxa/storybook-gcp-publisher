@@ -4,8 +4,8 @@ const { Command } = require('commander');
 const path = require('path');
 const { Storage } = require('@google-cloud/storage');
 
-const loadConfig = require('./lib/config');
 const createLog = require('./lib/log');
+const { setupConfigOptions, loadConfig } = require('./lib/config');
 const { getCommitMetadata } = require('./lib/commit');
 const { buildStorybooks } = require('./lib/build');
 const { publishStorybooks, updateSiteIndex } = require('./lib/publish');
@@ -26,31 +26,18 @@ async function initContext() {
   const program = new Command();
 
   program
+    .version(ourPackageMeta.version)
     .option('-d, --dir <path>', 'working directory')
-    .option('-c, --config <file>', 'local config JSON file')
     .option('-l, --log-level <level>', 'log level')
-    .option('--check-config', 'dump config settings to console and exit')
-    .option('--skip-build', 'skip storybook build')
-    .option('--skip-publish', 'skip storybook publish')
-    .option('--skip-status', 'skip setting github status check')
-    .version(ourPackageMeta.version);
+
+  await setupConfigOptions(program);
 
   program.parse(process.argv);
 
   if (program.dir) process.chdir(program.dir);
-
   const initialCwd = process.cwd();
 
-  const options = {
-    skip: {
-      build: !!program.skipBuild,
-      publish: !!program.skipPublish,
-      status: !!program.skipStatus,
-    },
-  };
-  if (program.logLevel) options.logLevel = program.logLevel;
-
-  const config = await loadConfig(program.config, options, program.checkConfig);
+  const config = await loadConfig(program);
 
   const log = createLog(config.logLevel);
 
