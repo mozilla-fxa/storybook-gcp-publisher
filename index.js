@@ -1,7 +1,6 @@
 #!/usr/bin/env node
-/* eslint no-use-before-define: 0 */
-const { Command } = require('commander');
 const path = require('path');
+const { Command } = require('commander');
 const { Storage } = require('@google-cloud/storage');
 
 const createLog = require('./lib/log');
