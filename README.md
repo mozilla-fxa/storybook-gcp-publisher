@@ -68,6 +68,9 @@ Credentials for Github and GCP should be configured in environmental variables:
 
   * See also: [Using Multiple Line(newline) Environment Variables in CircleCI](https://support.circleci.com/hc/en-us/articles/360046094254-Using-Multiple-Line-newline-Environment-Variables-in-CircleCI)
 
+  * If you download a JSON credentials file from the Google Cloud console, you can use [`jq`](https://stedolan.github.io/jq/) and [`base64` from GNU coreutils](https://www.gnu.org/software/coreutils/) to produce the value for this variable:
+    * `jq -r .private_key storybook-static-sites-8675309698d8.json | base64 -w 0 `
+
 ### Advanced
 
 Check [./lib/config.js](./lib/config.js) for the complete configuration schema.
