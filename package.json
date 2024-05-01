@@ -7,7 +7,7 @@
   "dependencies": {
     "@google-cloud/storage": "^5.20.5",
     "commander": "^6.1.0",
-    "convict": "^6.2.3",
+    "convict": "^6.2.4",
     "globby": "^11.1.0",
     "mkdirp": "^1.0.4",
     "node-fetch": "^2.6.7",
